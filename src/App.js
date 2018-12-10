@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import AddUser from './AddUser.js'
+import UserList from './UserList.js'
 import logo from './logo.svg';
 import './App.css';
 
@@ -12,20 +14,27 @@ The instructions for this project are located in the `instructions.md` file.
 
 class App extends Component {
   state={
-    users:
-    [
-      {userId: 1,
-       username:'Miti',
+    
+    users: [
+          
+      {username:'Miti',
        firstname:'Miti',
        lastname:'Postolache',
        numberOfGames:2},
-     {userId: 2,
-      username:'Tupi',
+     
+      {username:'Tupi',
       firstname:'Tupi',
       lastname:'Postolache',
       numberOfGames:3}
     ]
   }
+
+onAddUser=newUser=>{
+  this.setState((prevState) =>({
+     
+     users: [...prevState.users, newUser]}
+               ))}
+
   render() {
     return (
       <div className="App">
@@ -33,12 +42,11 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">ReactND - Coding Practice</h1>
         </header>
-        <button className="hide-games-number">Hide the number of games played.</button>
-        <ul className="user-list">
-          {this.state.users.map(user=><li key={user.userId}>{user.username} played {user.numberOfGames} games.</li>)}
-        </ul>
-       <button className="add-user">Add user</button>
-        
+        <UserList users={this.state.users}/>
+        <AddUser 
+         onAddUser={this.onAddUser}
+         users={this.state.users}
+         />
       </div>
     );
   }
